@@ -16,15 +16,17 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-200 p-4">
+    <div className="p-4">
       <h1 className="text-3xl text-blue-500">Менеджер задач</h1>
-      <AddIcon
-        onClick={() => addTask("Список задач")}
-        style={{ cursor: "pointer" }}
-      />
-      {tasksList.map((list) => (
-        <TaskListComponent key={list.id} list={list} />
-      ))}
+      <div className="space-y-4">
+        <AddIcon
+          onClick={() => addTask("Список задач")}
+          style={{ cursor: "pointer" }}
+        />
+        {tasksList.map((list) => (
+          <TaskListComponent key={list.id} list={list} />
+        ))}
+      </div>
     </div>
   );
 }

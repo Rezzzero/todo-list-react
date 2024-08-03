@@ -107,13 +107,16 @@ export const TableComponent: React.FC = () => {
   });
 
   return (
-    <div>
-      <table>
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white border-collapse border border-gray-300">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th
+                  key={header.id}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300"
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -129,7 +132,10 @@ export const TableComponent: React.FC = () => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td
+                  key={cell.id}
+                  className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-gray-300"
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
