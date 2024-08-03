@@ -5,6 +5,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
+import { EditableCellComponent } from "./Cell/EditableCellComponent";
+import { StatusCellComponent } from "./Cell/StatusCellComponent";
 
 type Task = {
   task: {
@@ -15,27 +17,6 @@ type Task = {
     notes: string;
   };
 };
-
-const columnHelper = createColumnHelper<Task>();
-
-const columns = [
-  columnHelper.accessor("task.name", {
-    cell: (info) => info.getValue(),
-    header: () => <span>Задача</span>,
-  }),
-  columnHelper.accessor((row) => row.task.owner, {
-    id: "task.owner",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Owner</span>,
-  }),
-  columnHelper.accessor("task.status", {
-    header: () => "Status",
-    cell: (info) => info.renderValue(),
-  }),
-  columnHelper.accessor("task.notes", {
-    header: () => <span>Notes</span>,
-  }),
-];
 
 export const TableComponent: React.FC = () => {
   const [data, setData] = useState<Task[]>([]);
@@ -60,6 +41,64 @@ export const TableComponent: React.FC = () => {
       addTask(newTaskName);
     }
   };
+
+  const columnHelper = createColumnHelper<Task>();
+
+  const columns = [
+    columnHelper.accessor("task.name", {
+      header: () => <span>Задача</span>,
+      cell: (info) => (
+        <EditableCellComponent
+          initialValue={info.getValue()}
+          onSave={(newValue) => {
+            const updatedData = [...data];
+            const taskIndex = updatedData.findIndex(
+              (t) => t.task.id === info.row.original.task.id
+            );
+            updatedData[taskIndex].task.name = newValue;
+            setData(updatedData);
+          }}
+        />
+      ),
+    }),
+    columnHelper.accessor((row) => row.task.owner, {
+      id: "task.owner",
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span>Owner</span>,
+    }),
+    columnHelper.accessor("task.status", {
+      header: () => "Status",
+      cell: (info) => (
+        <StatusCellComponent
+          initialValue={info.getValue()}
+          onSave={(newValue) => {
+            const updatedData = [...data];
+            const taskIndex = updatedData.findIndex(
+              (t) => t.task.id === info.row.original.task.id
+            );
+            updatedData[taskIndex].task.status = newValue;
+            setData(updatedData);
+          }}
+        />
+      ),
+    }),
+    columnHelper.accessor("task.notes", {
+      header: () => <span>Notes</span>,
+      cell: (info) => (
+        <EditableCellComponent
+          initialValue={info.getValue()}
+          onSave={(newValue) => {
+            const updatedData = [...data];
+            const taskIndex = updatedData.findIndex(
+              (t) => t.task.id === info.row.original.task.id
+            );
+            updatedData[taskIndex].task.notes = newValue;
+            setData(updatedData);
+          }}
+        />
+      ),
+    }),
+  ];
 
   const table = useReactTable({
     data,
@@ -113,3 +152,5 @@ export const TableComponent: React.FC = () => {
     </div>
   );
 };
+
+export default TableComponent;
