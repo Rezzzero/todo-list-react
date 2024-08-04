@@ -1,13 +1,13 @@
-import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import { TaskListComponent } from "./components/TaskListComponent";
+import AddIcon from "@mui/icons-material/Add";
+import { TaskListComponent } from "../components/TaskListComponent";
 
 type TaskList = {
   id: number;
   name: string;
 };
 
-function App() {
+export const HomePage = () => {
   const [tasksList, setTasksList] = useState<TaskList[]>([]);
 
   const addTask = (taskText: string) => {
@@ -29,6 +29,4 @@ function App() {
       </div>
     </div>
   );
-}
-
-export default App;
+};
