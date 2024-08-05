@@ -1,6 +1,8 @@
 import { useState } from "react";
 import supabase from "../../utils/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import GoogleIcon from "@mui/icons-material/Google";
 
 type AuthComponentProps = {
   url: string;
@@ -53,8 +55,20 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    if (error) console.error("Google sign in error:", error.message);
+    if (data) navigate("/");
+  };
+
   return (
     <div>
+      <>
+        <h1>Auth with social</h1>
+        <GoogleIcon onClick={handleGoogleSignIn} />
+      </>
       <h1>{isSignUp ? "Sign Up" : "Sign In"}</h1>
       <form onSubmit={handleSubmit}>
         {isSignUp ? (
@@ -103,7 +117,12 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
           />
         </div>
         {isSignIn ? (
-          <button type="submit">Sign In</button>
+          <>
+            <Link to="/register" className="text-blue-500">
+              Don't have an account?
+            </Link>
+            <button type="submit">Sign In</button>
+          </>
         ) : (
           <button type="submit">Sign Up</button>
         )}
