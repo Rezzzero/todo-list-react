@@ -3,6 +3,7 @@ import supabase from "../../utils/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
+import { InputComponent } from "../CustomInput/InputComponent";
 
 type AuthComponentProps = {
   url: string;
@@ -64,30 +65,29 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
   };
 
   return (
-    <div>
-      <>
-        <h1>Auth with social</h1>
+    <div className="bg-[#696969] w-[330px] h-[360px] text-white rounded-xl">
+      <div className="bg-[#8D8D9C] w-[30px] h-[30px] mx-auto rounded-xl flex items-center justify-center">
         <GoogleIcon onClick={handleGoogleSignIn} />
-      </>
-      <h1>{isSignUp ? "Sign Up" : "Sign In"}</h1>
+      </div>
+      <h1 className="text-3xl text-center my-4">
+        {isSignIn ? "Sign In" : "Sign Up"}
+      </h1>
       <form onSubmit={handleSubmit}>
         {isSignUp ? (
           <>
             <div>
-              <label>Email:</label>
-              <input
+              <InputComponent
                 type="email"
                 name="email"
+                placeholder="Enter an email"
                 value={authData.email}
                 onChange={handleChange}
                 required
               />
-            </div>
-            <div>
-              <label>Username:</label>
-              <input
+              <InputComponent
                 type="text"
                 name="username"
+                placeholder="Enter a username"
                 value={authData.username}
                 onChange={handleChange}
                 required
@@ -96,10 +96,10 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
           </>
         ) : (
           <div>
-            <label>Email:</label>
-            <input
+            <InputComponent
               type="email"
               name="email"
+              placeholder="Enter an email"
               value={authData.email}
               onChange={handleChange}
               required
@@ -107,10 +107,10 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
           </div>
         )}
         <div>
-          <label>Password:</label>
-          <input
+          <InputComponent
             type="password"
             name="password"
+            placeholder="Enter a password"
             value={authData.password}
             onChange={handleChange}
             required
