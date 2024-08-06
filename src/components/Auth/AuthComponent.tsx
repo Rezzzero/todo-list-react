@@ -65,7 +65,7 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
   };
 
   return (
-    <div className="bg-[#696969] w-[330px] h-[360px] text-white rounded-xl">
+    <div className="bg-[#696969] w-[330px] h-[360px] mx-auto text-white rounded-xl">
       <div className="bg-[#8D8D9C] w-[30px] h-[30px] mx-auto rounded-xl flex items-center justify-center">
         <GoogleIcon onClick={handleGoogleSignIn} />
       </div>

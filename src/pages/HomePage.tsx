@@ -17,12 +17,13 @@ export const HomePage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-3xl text-blue-500">Менеджер задач</h1>
       <div className="space-y-4">
-        <AddIcon
-          onClick={() => addTask("Список задач")}
-          style={{ cursor: "pointer" }}
-        />
+        <button
+          onClick={() => addTask("Добавить список задач")}
+          className="bg-blue-600 h-10 w-[240px] text-white text-lg rounded-md"
+        >
+          <AddIcon /> Добавить список задач
+        </button>
         {tasksList.map((list) => (
           <TaskListComponent key={list.id} list={list} />
         ))}
