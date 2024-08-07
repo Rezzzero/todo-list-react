@@ -106,16 +106,14 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
             />
           </div>
         )}
-        <div>
-          <InputComponent
-            type="password"
-            name="password"
-            placeholder="Enter a password"
-            value={authData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <InputComponent
+          type="password"
+          name="password"
+          placeholder="Enter a password"
+          value={authData.password}
+          onChange={handleChange}
+          required
+        />
         {isSignIn ? (
           <>
             <Link to="/register" className="text-blue-500">

@@ -26,7 +26,7 @@ export const InputComponent: React.FC<InputComponentProps> = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full p-2 border border-gray-300 rounded-md"
+        className="w-full text-black p-2 border border-gray-300 rounded-md"
       />
     </div>
   );
