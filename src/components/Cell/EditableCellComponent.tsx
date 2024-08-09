@@ -1,37 +1,48 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface EditableCellComponentProps {
-  initialValue: string;
+  value: string | "";
   onSave: (newValue: string) => void;
 }
 
 export const EditableCellComponent: React.FC<EditableCellComponentProps> = ({
-  initialValue,
+  value,
   onSave,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(initialValue);
+  const [inputValue, setInputValue] = useState(value);
 
   const handleBlur = () => {
+    if (inputValue.trim() !== value) {
+      onSave(inputValue);
+    }
     setIsEditing(false);
-    onSave(value);
   };
 
-  return isEditing ? (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      onBlur={handleBlur}
-      autoFocus
-    />
-  ) : (
-    <span
-      onClick={() => setIsEditing(true)}
-      onMouseEnter={() => setIsEditing(true)}
-      style={{ cursor: "pointer" }}
-    >
-      {value || "Add Notes..."}
-    </span>
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleBlur();
+    } else if (e.key === "Escape") {
+      setIsEditing(false);
+    }
+  };
+
+  return (
+    <>
+      {isEditing ? (
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+          className="w-full p-1 border border-gray-300"
+        />
+      ) : (
+        <span onClick={() => setIsEditing(true)} className="cursor-pointer">
+          {value}
+        </span>
+      )}
+    </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import supabase from "../utils/supabaseClient";
+import supabase from "../../utils/supabaseClient";
 import { userContext } from "./UserContext";
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({

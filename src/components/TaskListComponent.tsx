@@ -6,7 +6,7 @@ type Task = {
   id: string;
   task_name: string;
   status: string | null;
-  notes: string | null;
+  notes: string | "";
   list_id: string;
   created_at: string;
 };
@@ -51,12 +51,34 @@ export const TaskListComponent: React.FC<TaskProps> = ({ list }) => {
       setTasks((prevTasks) => [...prevTasks, data[0] as Task]);
     }
   };
+
+  const updateTask = async (taskId: string, updatedTask: Partial<Task>) => {
+    const { data, error } = await supabase
+      .from("tasks")
+      .update(updatedTask)
+      .eq("id", taskId)
+      .select();
+
+    if (error) {
+      console.error("Error updating task:", error);
+    } else {
+      console.log("Task updated:", data[0]);
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task.id === taskId ? data[0] : task))
+      );
+    }
+  };
+
   return (
     <>
       <h1 className="text-3xl text-blue-300">{list.name}</h1>
       <div className="flex w-full mb-[40px]">
         <div className="w-full">
-          <TableComponent onAddTask={addTask} tasks={tasks} />
+          <TableComponent
+            onAddTask={addTask}
+            tasks={tasks}
+            onUpdateTask={updateTask}
+          />
         </div>
       </div>
     </>

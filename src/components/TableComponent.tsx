@@ -5,22 +5,26 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
+import { EditableCellComponent } from "./Cell/EditableCellComponent";
+import { StatusCellComponent } from "./Cell/StatusCellComponent";
 
 type Task = {
   id: string;
   task_name: string;
   status: string | null;
-  notes: string | null;
+  notes: string | "";
 };
 
 type TableComponentProps = {
   onAddTask: (taskName: string) => void;
   tasks: Task[];
+  onUpdateTask: (taskId: string, updatedTask: Partial<Task>) => void;
 };
 
 export const TableComponent: React.FC<TableComponentProps> = ({
   onAddTask,
   tasks,
+  onUpdateTask,
 }) => {
   const [newTaskName, setNewTaskName] = useState("");
 
@@ -39,16 +43,37 @@ export const TableComponent: React.FC<TableComponentProps> = ({
 
   const columns = [
     columnHelper.accessor("task_name", {
-      header: () => <span>Задача</span>,
-      cell: (info) => info.getValue(),
+      header: () => "Задача",
+      cell: (info) => (
+        <EditableCellComponent
+          value={info.getValue()}
+          onSave={(newValue) =>
+            onUpdateTask(info.row.original.id, { task_name: newValue })
+          }
+        />
+      ),
     }),
     columnHelper.accessor("status", {
       header: () => "Status",
-      cell: (info) => info.getValue() || "No Status",
+      cell: (info) => (
+        <StatusCellComponent
+          initialValue={info.getValue() || "No Status"}
+          onSave={(newValue) =>
+            onUpdateTask(info.row.original.id, { status: newValue })
+          }
+        />
+      ),
     }),
     columnHelper.accessor("notes", {
-      header: () => <span>Notes</span>,
-      cell: (info) => info.getValue() || "No Notes",
+      header: () => "Notes",
+      cell: (info) => (
+        <EditableCellComponent
+          value={info.getValue() || "Add notes..."}
+          onSave={(newValue) =>
+            onUpdateTask(info.row.original.id, { notes: newValue })
+          }
+        />
+      ),
     }),
   ];
 
