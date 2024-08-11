@@ -9,7 +9,7 @@ type AuthComponentProps = {
   url: string;
 };
 
-export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
+export const AuthComponent = ({ url }: AuthComponentProps) => {
   const isSignIn = url.includes("/login");
   const isSignUp = url.includes("/register");
   const [authData, setAuthData] = useState({
@@ -29,14 +29,14 @@ export const AuthComponent: React.FC<AuthComponentProps> = ({ url }) => {
     event.preventDefault();
     try {
       if (isSignIn) {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
           email: authData.email,
           password: authData.password,
         });
         if (error) throw error;
         navigate("/");
       } else if (isSignUp) {
-        const { data, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email: authData.email,
           password: authData.password,
           options: {

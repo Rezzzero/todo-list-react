@@ -9,14 +9,14 @@ type InputComponentProps = {
   required?: boolean;
 };
 
-export const InputComponent: React.FC<InputComponentProps> = ({
+export const InputComponent = ({
   value,
   onChange,
   placeholder,
   name,
   type = "text",
   required = false,
-}) => {
+}: InputComponentProps) => {
   return (
     <div className="mb-3">
       <input

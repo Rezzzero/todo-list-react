@@ -20,11 +20,11 @@ type TableComponentProps = {
   onUpdateTask: (taskId: string, updatedTask: Partial<Task>) => void;
 };
 
-export const TableComponent: React.FC<TableComponentProps> = ({
+export const TableComponent = ({
   onAddTask,
   tasks,
   onUpdateTask,
-}) => {
+}: TableComponentProps) => {
   const [newTaskName, setNewTaskName] = useState("");
 
   const addTask = (taskName: string) => {

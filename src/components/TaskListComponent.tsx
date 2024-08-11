@@ -3,7 +3,7 @@ import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 import { Task, TaskProps } from "../types/TaskTypes";
 
-export const TaskListComponent: React.FC<TaskProps> = ({ list }) => {
+export const TaskListComponent = ({ list }: TaskProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {

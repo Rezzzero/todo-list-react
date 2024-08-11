@@ -4,9 +4,11 @@ import { useUser } from "../user/useUser";
 import { TasksContext } from "./TaskContext";
 import { TaskList } from "../../types/TaskTypes";
 
-export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+interface TaskProviderProps {
+  children: React.ReactNode;
+}
+
+export const TaskProvider = ({ children }: TaskProviderProps) => {
   const [tasksList, setTasksList] = useState<TaskList[]>([]);
   const { user } = useUser();
   const [updateList, setUpdateList] = useState(false);

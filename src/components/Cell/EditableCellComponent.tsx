@@ -6,11 +6,11 @@ interface EditableCellComponentProps {
   status?: boolean;
 }
 
-export const EditableCellComponent: React.FC<EditableCellComponentProps> = ({
+export const EditableCellComponent = ({
   value,
   onSave,
   status = false,
-}) => {
+}: EditableCellComponentProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(value);
 
