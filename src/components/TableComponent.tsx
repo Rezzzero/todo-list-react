@@ -6,13 +6,12 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { EditableCellComponent } from "./Cell/EditableCellComponent";
-import { StatusCellComponent } from "./Cell/StatusCellComponent";
 
 type Task = {
   id: string;
   task_name: string;
   status: string | null;
-  notes: string | "";
+  notes: string;
 };
 
 type TableComponentProps = {
@@ -56,11 +55,12 @@ export const TableComponent: React.FC<TableComponentProps> = ({
     columnHelper.accessor("status", {
       header: () => "Status",
       cell: (info) => (
-        <StatusCellComponent
-          initialValue={info.getValue() || "No Status"}
+        <EditableCellComponent
+          value={info.getValue() || "No Status"}
           onSave={(newValue) =>
             onUpdateTask(info.row.original.id, { status: newValue })
           }
+          status={true}
         />
       ),
     }),

@@ -1,22 +1,7 @@
 import { TableComponent } from "./TableComponent";
 import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
-
-type Task = {
-  id: string;
-  task_name: string;
-  status: string | null;
-  notes: string | "";
-  list_id: string;
-  created_at: string;
-};
-
-type TaskProps = {
-  list: {
-    id: string;
-    name: string;
-  };
-};
+import { Task, TaskProps } from "../types/TaskTypes";
 
 export const TaskListComponent: React.FC<TaskProps> = ({ list }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -26,7 +11,8 @@ export const TaskListComponent: React.FC<TaskProps> = ({ list }) => {
       const { data, error } = await supabase
         .from("tasks")
         .select("*")
-        .eq("list_id", list.id);
+        .eq("list_id", list.id)
+        .order("created_at", { ascending: true });
 
       if (error) {
         console.error("Error fetching tasks:", error);

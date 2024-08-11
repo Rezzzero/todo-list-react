@@ -1,9 +1,5 @@
 import { createContext } from "react";
-
-type TaskList = {
-  id: string;
-  name: string;
-};
+import { TaskList } from "../../types/TaskTypes";
 
 type TasksContextType = {
   tasksList: TaskList[];

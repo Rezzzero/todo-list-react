@@ -1,8 +1,9 @@
 import React, { createContext } from "react";
+import { UserData } from "../../types/UserTypes";
 
 export interface UserContextProps {
-  user: any;
-  setUser: React.Dispatch<React.SetStateAction<any>>;
+  user: UserData | null;
+  setUser: React.Dispatch<React.SetStateAction<UserData | null>>;
 }
 
 export const userContext = createContext<UserContextProps | undefined>(

@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "../../utils/supabaseClient";
 import { useUser } from "../user/useUser";
 import { TasksContext } from "./TaskContext";
-
-type TaskList = {
-  id: string;
-  name: string;
-};
+import { TaskList } from "../../types/TaskTypes";
 
 export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
