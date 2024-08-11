@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 import { Task, TaskProps } from "../types/TaskTypes";
 import { useTasks } from "../contexts/task/useTasks";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const TaskListComponent = ({ list }: TaskProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const { deleteTaskList } = useTasks();
+  const [isEditing, setIsEditing] = useState(false);
+  const [newListName, setNewListName] = useState(list.name);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -36,7 +40,6 @@ export const TaskListComponent = ({ list }: TaskProps) => {
     if (error) {
       console.error("Error adding task:", error);
     } else {
-      console.log("Task added:", data[0]);
       setTasks((prevTasks) => [...prevTasks, data[0] as Task]);
     }
   };
@@ -51,7 +54,6 @@ export const TaskListComponent = ({ list }: TaskProps) => {
     if (error) {
       console.error("Error updating task:", error);
     } else {
-      console.log("Task updated:", data[0]);
       setTasks((prevTasks) =>
         prevTasks.map((task) => (task.id === taskId ? data[0] : task))
       );
@@ -62,10 +64,47 @@ export const TaskListComponent = ({ list }: TaskProps) => {
     deleteTaskList(list.id);
   };
 
+  const handleSaveListName = async () => {
+    const { error } = await supabase
+      .from("tasks_list")
+      .update({ name: newListName })
+      .eq("id", list.id)
+      .select();
+
+    if (error) {
+      console.error("Error updating list name:", error);
+    } else {
+      setIsEditing(false);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl text-blue-300">{list.name}</h1>
+        {isEditing ? (
+          <div className="flex items-center space-x-2">
+            <input
+              type="text"
+              value={newListName}
+              onChange={(e) => setNewListName(e.target.value)}
+              className="text-3xl text-blue-300 border-b border-blue-300 bg-transparent"
+            />
+            <CheckIcon
+              onClick={handleSaveListName}
+              style={{ color: "green", fontSize: "40px", cursor: "pointer" }}
+            />
+          </div>
+        ) : (
+          <div className="flex items-center">
+            <h1 className="text-3xl text-blue-300 mr-4">
+              {newListName ? newListName : list.name}
+            </h1>
+            <EditIcon
+              onClick={() => setIsEditing(true)}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+        )}
         <button
           onClick={handleDeleteList}
           className="bg-red-600 text-white p-2 rounded-md"
