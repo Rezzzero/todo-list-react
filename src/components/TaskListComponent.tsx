@@ -2,9 +2,12 @@ import { TableComponent } from "./TableComponent";
 import supabase from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 import { Task, TaskProps } from "../types/TaskTypes";
+import { useTasks } from "../contexts/task/useTasks";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const TaskListComponent = ({ list }: TaskProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const { deleteTaskList } = useTasks();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -55,9 +58,21 @@ export const TaskListComponent = ({ list }: TaskProps) => {
     }
   };
 
+  const handleDeleteList = () => {
+    deleteTaskList(list.id);
+  };
+
   return (
     <>
-      <h1 className="text-3xl text-blue-300">{list.name}</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-3xl text-blue-300">{list.name}</h1>
+        <button
+          onClick={handleDeleteList}
+          className="bg-red-600 text-white p-2 rounded-md"
+        >
+          <DeleteIcon />
+        </button>
+      </div>
       <div className="flex w-full mb-[40px]">
         <div className="w-full">
           <TableComponent

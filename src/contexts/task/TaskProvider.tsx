@@ -11,7 +11,6 @@ interface TaskProviderProps {
 export const TaskProvider = ({ children }: TaskProviderProps) => {
   const [tasksList, setTasksList] = useState<TaskList[]>([]);
   const { user } = useUser();
-  const [updateList, setUpdateList] = useState(false);
 
   const fetchTasks = async () => {
     if (user && user.id) {
@@ -32,28 +31,52 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
     if (user) {
       fetchTasks();
     }
-  }, [user, updateList]);
+  }, [user]);
 
   const addTaskList = async (taskText: string) => {
-    if (user && user.id) {
-      const { data, error } = await supabase
-        .from("tasks_list")
-        .insert([{ name: taskText, user_id: user.id }])
-        .single();
+    const { data, error } = await supabase
+      .from("tasks_list")
+      .insert([{ name: taskText }])
+      .single();
 
-      if (error) {
-        console.error("Error adding task list:", error.message);
-      } else {
-        setTasksList((prevTasks) => [...prevTasks, data]);
-        setUpdateList(true);
-      }
+    if (error) {
+      console.error("Error adding task list:", error.message);
     } else {
-      console.error("User is null or user.id is missing");
+      setTasksList((prevTasks) => [...prevTasks, data]);
+      fetchTasks();
+    }
+  };
+
+  const deleteTaskList = async (listId: string) => {
+    try {
+      const { error: deleteTasksError } = await supabase
+        .from("tasks")
+        .delete()
+        .eq("list_id", listId);
+
+      if (deleteTasksError) {
+        throw new Error(`Error deleting tasks: ${deleteTasksError.message}`);
+      }
+
+      const { error: deleteListError } = await supabase
+        .from("tasks_list")
+        .delete()
+        .eq("id", listId);
+
+      if (deleteListError) {
+        throw new Error(`Error deleting task list: ${deleteListError.message}`);
+      }
+
+      fetchTasks();
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <TasksContext.Provider value={{ tasksList, addTaskList, fetchTasks }}>
+    <TasksContext.Provider
+      value={{ tasksList, addTaskList, deleteTaskList, fetchTasks }}
+    >
       {children}
     </TasksContext.Provider>
   );
