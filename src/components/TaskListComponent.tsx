@@ -80,9 +80,9 @@ export const TaskListComponent = ({ list }: TaskProps) => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex items-center mb-4">
         {isEditing ? (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center mr-4 space-x-2">
             <input
               type="text"
               value={newListName}
@@ -95,13 +95,13 @@ export const TaskListComponent = ({ list }: TaskProps) => {
             />
           </div>
         ) : (
-          <div className="flex items-center">
+          <div className="flex items-center mr-4">
             <h1 className="text-3xl text-blue-300 mr-4">
               {newListName ? newListName : list.name}
             </h1>
             <EditIcon
               onClick={() => setIsEditing(true)}
-              style={{ cursor: "pointer" }}
+              style={{ color: "white", cursor: "pointer" }}
             />
           </div>
         )}
@@ -112,7 +112,7 @@ export const TaskListComponent = ({ list }: TaskProps) => {
           <DeleteIcon />
         </button>
       </div>
-      <div className="flex w-full mb-[40px]">
+      <div className="flex w-[80%] mb-[40px]">
         <div className="w-full">
           <TableComponent
             onAddTask={addTask}

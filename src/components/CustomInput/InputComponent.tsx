@@ -26,7 +26,7 @@ export const InputComponent = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full text-black p-2 border border-gray-300 rounded-md"
+        className="w-full bg-gray-500 text-white p-2 border border-gray-300 rounded-md"
       />
     </div>
   );

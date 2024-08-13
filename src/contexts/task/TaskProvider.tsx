@@ -74,9 +74,19 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
     }
   };
 
+  const clearTasksList = () => {
+    setTasksList([]);
+  };
+
   return (
     <TasksContext.Provider
-      value={{ tasksList, addTaskList, deleteTaskList, fetchTasks }}
+      value={{
+        tasksList,
+        addTaskList,
+        deleteTaskList,
+        fetchTasks,
+        clearTasksList,
+      }}
     >
       {children}
     </TasksContext.Provider>

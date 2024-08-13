@@ -85,14 +85,14 @@ export const TableComponent = ({
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-collapse border border-gray-300">
+      <table className="min-w-full bg-gray-700 border-collapse border border-gray-300">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300"
+                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-gray-300 w-[150px] max-w-[150px] min-w-[150px]"
                 >
                   {header.isPlaceholder
                     ? null
@@ -111,7 +111,7 @@ export const TableComponent = ({
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-gray-300"
+                  className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white border border-gray-300 w-[150px] max-w-[150px] min-w-[150px] overflow-hidden text-ellipsis"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
@@ -126,7 +126,7 @@ export const TableComponent = ({
                 onChange={(e) => setNewTaskName(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="+Добавить задачу"
-                className="w-full p-2 border border-gray-300"
+                className="w-full bg-gray-700 p-2 border border-gray-300"
               />
             </td>
           </tr>

@@ -65,16 +65,37 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
   };
 
   return (
-    <div className="bg-[#696969] w-[330px] h-[360px] mx-auto text-white rounded-xl">
-      <div className="bg-[#8D8D9C] w-[30px] h-[30px] mx-auto rounded-xl flex items-center justify-center">
-        <GoogleIcon onClick={handleGoogleSignIn} />
-      </div>
-      <h1 className="text-3xl text-center my-4">
-        {isSignIn ? "Sign In" : "Sign Up"}
-      </h1>
-      <form onSubmit={handleSubmit}>
-        {isSignUp ? (
-          <>
+    <div className="min-h-screen bg-gray-800">
+      <div className="bg-gray-700 w-[330px] h-[360px] mx-auto text-white rounded-xl p-4">
+        <div className="bg-[#8D8D9C] w-[30px] h-[30px] mx-auto rounded-xl flex items-center justify-center">
+          <GoogleIcon onClick={handleGoogleSignIn} />
+        </div>
+        <h1 className="text-3xl text-center my-4">
+          {isSignIn ? "Sign In" : "Sign Up"}
+        </h1>
+        <form onSubmit={handleSubmit}>
+          {isSignUp ? (
+            <>
+              <div>
+                <InputComponent
+                  type="email"
+                  name="email"
+                  placeholder="Enter an email"
+                  value={authData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <InputComponent
+                  type="text"
+                  name="username"
+                  placeholder="Enter a username"
+                  value={authData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </>
+          ) : (
             <div>
               <InputComponent
                 type="email"
@@ -84,47 +105,28 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
                 onChange={handleChange}
                 required
               />
-              <InputComponent
-                type="text"
-                name="username"
-                placeholder="Enter a username"
-                value={authData.username}
-                onChange={handleChange}
-                required
-              />
             </div>
-          </>
-        ) : (
-          <div>
-            <InputComponent
-              type="email"
-              name="email"
-              placeholder="Enter an email"
-              value={authData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        )}
-        <InputComponent
-          type="password"
-          name="password"
-          placeholder="Enter a password"
-          value={authData.password}
-          onChange={handleChange}
-          required
-        />
-        {isSignIn ? (
-          <>
-            <Link to="/register" className="text-blue-500">
-              Don't have an account?
-            </Link>
-            <button type="submit">Sign In</button>
-          </>
-        ) : (
-          <button type="submit">Sign Up</button>
-        )}
-      </form>
+          )}
+          <InputComponent
+            type="password"
+            name="password"
+            placeholder="Enter a password"
+            value={authData.password}
+            onChange={handleChange}
+            required
+          />
+          {isSignIn ? (
+            <>
+              <Link to="/register" className="text-blue-500">
+                Don't have an account?
+              </Link>
+              <button type="submit">Sign In</button>
+            </>
+          ) : (
+            <button type="submit">Sign Up</button>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

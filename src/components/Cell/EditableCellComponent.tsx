@@ -48,9 +48,14 @@ export const EditableCellComponent = ({
         onChange={handleChange}
         onBlur={handleBlur}
         autoFocus
+        className="bg-gray-600 p-1 border border-gray-300"
       >
         {statuses.map((status) => (
-          <option key={status} value={status}>
+          <option
+            key={status}
+            value={status}
+            className="w-full bg-gray-600 p-1 border border-gray-300"
+          >
             {status}
           </option>
         ))}
@@ -62,7 +67,7 @@ export const EditableCellComponent = ({
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        className="w-full p-1 border border-gray-300"
+        className="w-full bg-gray-600 p-1 border border-gray-300"
         autoFocus
       />
     )

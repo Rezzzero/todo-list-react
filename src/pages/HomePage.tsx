@@ -6,14 +6,8 @@ export const HomePage = () => {
   const { tasksList, addTaskList } = useTasks();
 
   return (
-    <div className="p-4">
-      <div className="space-y-4">
-        <button
-          onClick={() => addTaskList("Новый список задач")}
-          className="bg-blue-600 h-10 w-[240px] text-white text-lg rounded-md"
-        >
-          <AddIcon /> Добавить список задач
-        </button>
+    <div className="bg-gray-800 min-h-screen flex flex-col p-4">
+      <div className="space-y-4 text-white">
         {tasksList.length === 0 ? (
           <p className="text-lg">Начни планировать свои дела!</p>
         ) : (
@@ -24,6 +18,12 @@ export const HomePage = () => {
             return <TaskListComponent key={list.id} list={list} />;
           })
         )}
+        <button
+          onClick={() => addTaskList("Новый список задач")}
+          className="bg-blue-600 h-10 w-[240px] text-lg rounded-md"
+        >
+          <AddIcon /> Добавить список задач
+        </button>
       </div>
     </div>
   );

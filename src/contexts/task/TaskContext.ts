@@ -6,6 +6,7 @@ type TasksContextType = {
   addTaskList: (taskText: string) => void;
   deleteTaskList: (taskId: string) => void;
   fetchTasks: () => void;
+  clearTasksList: () => void;
 };
 
 export const TasksContext = createContext<TasksContextType | undefined>(
