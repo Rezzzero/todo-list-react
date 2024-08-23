@@ -85,7 +85,7 @@ export const TableComponent = ({
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-gray-700 border-collapse border border-gray-300">
+      <table className="min-w-full bg-[#5F6772] border-collapse border border-gray-300">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -126,7 +126,7 @@ export const TableComponent = ({
                 onChange={(e) => setNewTaskName(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="+Добавить задачу"
-                className="w-full bg-gray-700 p-2 border border-gray-300"
+                className="w-full bg-[#5F6772] p-2 border border-gray-300"
               />
             </td>
           </tr>

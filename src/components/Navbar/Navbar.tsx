@@ -3,7 +3,7 @@ import { useUser } from "../../contexts/user/useUser";
 import { useTasks } from "../../contexts/task/useTasks";
 import supabase from "../../utils/supabaseClient";
 
-export default function Navbar() {
+export const Navbar = () => {
   const { user } = useUser();
   const { clearTasksList } = useTasks();
   const signOut = async () => {
@@ -16,18 +16,21 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-gray-900 text-white w-full h-[60px]">
-      <div className="container mx-auto p-4 flex justify-between items-center">
-        <div className="text-lg font-bold">
-          <Link to="/">Менеджер задач</Link>
-        </div>
+    <div className="bg-[#D9D9D9] w-full h-[60px] ">
+      <div className="container mx-auto px-4 flex justify-between items-center h-full">
+        <Link to="/" className="flex align-center text-[#AB6060] font-island">
+          <h1 className="text-3xl mr-2">R</h1>
+          <p className="pt-1 text-black text-xl font-light font-roboto">
+            TaskManager
+          </p>
+        </Link>
         {!user ? (
           <ul className="flex space-x-4">
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/login">Log In</Link>
             </li>
             <li>
-              <Link to="/register">Register</Link>
+              <Link to="/register">Sign Up</Link>
             </li>
           </ul>
         ) : (
@@ -41,4 +44,4 @@ export default function Navbar() {
       </div>
     </div>
   );
-}
+};

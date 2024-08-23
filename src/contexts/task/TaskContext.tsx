@@ -6,21 +6,8 @@ import {
   useCallback,
 } from "react";
 import supabase from "../../utils/supabaseClient";
-import { Task, TaskList } from "../../types/TaskTypes";
+import { Task, TaskList, TasksContextType } from "../../types/TaskTypes";
 import { useUser } from "../user/useUser";
-export interface TasksContextType {
-  tasksList: TaskList[];
-  tasks: { [key: string]: Task[] };
-  setTasks: React.Dispatch<React.SetStateAction<{ [key: string]: Task[] }>>;
-  addTaskList: (taskText: string) => void;
-  deleteTaskList: (listId: string) => void;
-  fetchTasksList: () => void;
-  fetchTasks: (listId: string) => void;
-  addTask: (taskName: string, listId: string) => void;
-  updateTask: (taskId: string, updatedTask: Partial<Task>) => void;
-  clearTasksList: () => void;
-  updateTaskListName: (listId: string, newName: string) => void;
-}
 
 export const TasksContext = createContext<TasksContextType | undefined>(
   undefined
@@ -78,7 +65,6 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
           const newTask = payload.new as TaskList;
           const oldTask = payload.old as TaskList;
 
-          console.log(payload);
           switch (payload.eventType) {
             case "INSERT":
               setTasksList((prevTasks) => [...prevTasks, newTask]);

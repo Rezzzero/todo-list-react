@@ -50,7 +50,7 @@ export const TaskListComponent = ({ list }: TaskProps) => {
               type="text"
               value={newListName}
               onChange={(e) => setNewListName(e.target.value)}
-              className="text-3xl text-blue-300 border-b border-blue-300 bg-transparent"
+              className="text-3xl text-[#678FC3] border-b border-blue-300 bg-transparent"
             />
             <CheckIcon
               onClick={handleSaveListName}
@@ -59,7 +59,7 @@ export const TaskListComponent = ({ list }: TaskProps) => {
           </div>
         ) : (
           <div className="flex items-center mr-4">
-            <h1 className="text-3xl text-blue-300 mr-4">{list.name}</h1>
+            <h1 className="text-3xl text-[#678FC3] mr-4">{list.name}</h1>
             <EditIcon
               onClick={() => setIsEditing(true)}
               style={{ color: "white", cursor: "pointer" }}
