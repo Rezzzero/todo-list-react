@@ -141,9 +141,11 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
               case "DELETE":
                 return {
                   ...prevTasks,
-                  [oldTask.list_id]: prevTasks[oldTask.list_id].filter(
-                    (task) => task.id !== oldTask.id
-                  ),
+                  [oldTask.list_id]: prevTasks[oldTask.list_id]
+                    ? prevTasks[oldTask.list_id].filter(
+                        (task) => task.id !== oldTask.id
+                      )
+                    : [],
                 };
               default:
                 return prevTasks;
@@ -164,11 +166,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
       .insert([{ name: taskText }])
       .single();
 
-    if (error) {
-      console.error("Error adding task list:", error.message);
-    } else {
-      fetchTasksList();
-    }
+    if (error) console.error("Error adding task list:", error.message);
   };
 
   const deleteTaskList = async (listId: string) => {
@@ -198,19 +196,12 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addTask = async (taskName: string, listId: string) => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("tasks")
       .insert([{ task_name: taskName, list_id: listId }])
       .select();
 
-    if (error) {
-      console.error("Error adding task:", error.message);
-    } else {
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        [listId]: [...(prevTasks[listId] || []), data[0] as Task],
-      }));
-    }
+    if (error) console.error("Error adding task:", error.message);
   };
 
   const updateTask = async (taskId: string, updatedTask: Partial<Task>) => {
