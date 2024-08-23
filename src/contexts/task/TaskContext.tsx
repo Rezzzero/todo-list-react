@@ -103,40 +103,44 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
           schema: "public",
           table: "tasks",
         },
-        (payload) => {
+        async (payload) => {
           const newTask = payload.new as Task;
           const oldTask = payload.old as Task;
 
-          setTasks((prevTasks) => {
-            switch (payload.eventType) {
-              case "INSERT":
-                return {
-                  ...prevTasks,
-                  [newTask.list_id]: [
-                    ...(prevTasks[newTask.list_id] || []),
-                    newTask,
-                  ],
-                };
-              case "UPDATE":
-                return {
-                  ...prevTasks,
-                  [newTask.list_id]: prevTasks[newTask.list_id].map((task) =>
-                    task.id === newTask.id ? newTask : task
-                  ),
-                };
-              case "DELETE":
-                return {
-                  ...prevTasks,
-                  [oldTask.list_id]: prevTasks[oldTask.list_id]
-                    ? prevTasks[oldTask.list_id].filter(
-                        (task) => task.id !== oldTask.id
-                      )
-                    : [],
-                };
-              default:
-                return prevTasks;
-            }
-          });
+          switch (payload.eventType) {
+            case "INSERT":
+              setTasks((prevTasks) => ({
+                ...prevTasks,
+                [newTask.list_id]: [
+                  ...(prevTasks[newTask.list_id] || []),
+                  newTask,
+                ],
+              }));
+              break;
+            case "UPDATE":
+              setTasks((prevTasks) => ({
+                ...prevTasks,
+                [newTask.list_id]: prevTasks[newTask.list_id].map((task) =>
+                  task.id === newTask.id ? newTask : task
+                ),
+              }));
+              break;
+            case "DELETE":
+              setTasks((prevTasks) => {
+                const updatedTasks = { ...prevTasks };
+
+                Object.keys(prevTasks).forEach((listKey) => {
+                  updatedTasks[listKey] = updatedTasks[listKey].filter(
+                    (task) => task.id !== oldTask.id
+                  );
+                });
+
+                return updatedTasks;
+              });
+              break;
+            default:
+              break;
+          }
         }
       )
       .subscribe();
@@ -210,6 +214,13 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const deleteTask = async (taskId: string, listId: string) => {
+    const { error } = await supabase.from("tasks").delete().eq("id", taskId);
+
+    if (error) console.error("Error deleting task:", error.message);
+    fetchTasks(listId);
+  };
+
   const updateTaskListName = async (listId: string, newName: string) => {
     const { error } = await supabase
       .from("tasks_list")
@@ -242,6 +253,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
         updateTask,
         clearTasksList,
         updateTaskListName,
+        deleteTask,
       }}
     >
       {children}

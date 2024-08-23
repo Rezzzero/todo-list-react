@@ -28,4 +28,5 @@ export interface TasksContextType {
   updateTask: (taskId: string, updatedTask: Partial<Task>) => void;
   clearTasksList: () => void;
   updateTaskListName: (listId: string, newName: string) => void;
+  deleteTask: (taskId: string, listId: string) => void;
 }

@@ -14,6 +14,7 @@ export const TaskListComponent = ({ list }: TaskProps) => {
     addTask,
     updateTask,
     updateTaskListName,
+    deleteTask,
   } = useTasks();
   const [isEditing, setIsEditing] = useState(false);
   const [newListName, setNewListName] = useState(list.name);
@@ -79,6 +80,8 @@ export const TaskListComponent = ({ list }: TaskProps) => {
             onAddTask={handleAddTask}
             tasks={tasksForCurrentList}
             onUpdateTask={handleUpdateTask}
+            deleteTask={deleteTask}
+            listId={list.id}
           />
         </div>
       </div>
