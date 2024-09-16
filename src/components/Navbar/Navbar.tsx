@@ -2,10 +2,61 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../contexts/user/useUser";
 import { useTasks } from "../../contexts/task/useTasks";
 import supabase from "../../utils/supabaseClient";
+import EditIcon from "@mui/icons-material/Edit";
+import { Modal } from "@mui/material";
+import { useEffect, useState } from "react";
+import { ChangeAvatar } from "../ChangeAvatar/ChangeAvatar";
+import { getAvatarUrl } from "../../utils/utils";
 
 export const Navbar = () => {
   const { user } = useUser();
   const { clearTasksList } = useTasks();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const photoFromMetadata = user?.user_metadata.avatar_url;
+
+  useEffect(() => {
+    if (user) {
+      const url = getAvatarUrl(user.id);
+      if (url) {
+        fetch(url, { method: "HEAD" })
+          .then((response) => {
+            if (response.ok) {
+              setAvatarUrl(url);
+            } else {
+              setAvatarUrl(photoFromMetadata || "https://placehold.co/200x200");
+            }
+          })
+          .catch(() => {
+            setAvatarUrl(photoFromMetadata || "https://placehold.co/200x200");
+          });
+      } else {
+        setAvatarUrl(photoFromMetadata || "https://placehold.co/200x200");
+      }
+    }
+  }, [user, photoFromMetadata]);
+
+  const updateAvatar = () => {
+    if (user) {
+      const url = getAvatarUrl(user.id);
+      if (url) {
+        fetch(url, { method: "HEAD" })
+          .then((response) => {
+            if (response.ok) {
+              setAvatarUrl(url);
+            } else {
+              setAvatarUrl(photoFromMetadata || "https://placehold.co/200x200");
+            }
+          })
+          .catch(() => {
+            setAvatarUrl(photoFromMetadata || "https://placehold.co/200x200");
+          });
+      } else {
+        setAvatarUrl(photoFromMetadata || "https://placehold.co/200x200");
+      }
+    }
+  };
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -14,6 +65,9 @@ export const Navbar = () => {
       clearTasksList();
     }
   };
+
+  const handleOpen = () => setIsModalOpen(true);
+  const handleClose = () => setIsModalOpen(false);
 
   return (
     <div className="bg-[#D9D9D9] w-full h-[60px] ">
@@ -34,11 +88,41 @@ export const Navbar = () => {
             </li>
           </ul>
         ) : (
-          <div className="flex space-x-4">
+          <div className="flex items-center space-x-4">
+            <div className="relative group w-10 h-10">
+              <img
+                src={
+                  avatarUrl
+                    ? avatarUrl
+                    : photoFromMetadata
+                    ? photoFromMetadata
+                    : "https://placehold.co/200x200"
+                }
+                alt="avatar"
+                className="w-full h-full rounded-full object-cover group-hover:brithness-50 transition duration-300"
+              />
+              <EditIcon
+                onClick={() => handleOpen()}
+                className="absolute inset-0 opacity-0 m-auto text-white group-hover:opacity-100 transition duration-300"
+                fontSize="small"
+              />
+            </div>
             <p>{user.user_metadata.username}</p>
             <button onClick={() => signOut()} className="text-red-500">
               Logout
             </button>
+            {isModalOpen && (
+              <Modal
+                open={isModalOpen}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <div className="absolute top-[50%] left-[50%] text-center text-white translate-x-[-50%] translate-y-[-50%] w-[600px] h-[500px] p-4 bg-[#3D3D43]">
+                  <ChangeAvatar onUpload={updateAvatar} onClose={handleClose} />
+                </div>
+              </Modal>
+            )}
           </div>
         )}
       </div>

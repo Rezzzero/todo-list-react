@@ -22,6 +22,7 @@ interface UserMetadata {
   phone_verified: boolean;
   sub: string;
   username: string;
+  avatar_url: string;
 }
 
 interface AppMetadata {
