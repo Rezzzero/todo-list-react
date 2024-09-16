@@ -62,7 +62,7 @@ export const ChangeAvatar = ({ onUpload, onClose }: ChangeAvatarProps) => {
     try {
       setUploading(true);
       const fileName = `${user.id}`;
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from("user_avatar")
         .upload(fileName, selectedFile, {
           cacheControl: "3600",
