@@ -118,7 +118,7 @@ export const Navbar = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <div className="absolute top-[50%] left-[50%] text-center text-white translate-x-[-50%] translate-y-[-50%] w-[600px] h-[500px] p-4 bg-[#3D3D43]">
+                <div className="absolute top-[50%] left-[50%] text-center text-white translate-x-[-50%] translate-y-[-50%] w-[600px] h-[520px] p-4 bg-[#3D3D43]">
                   <ChangeAvatar onUpload={updateAvatar} onClose={handleClose} />
                 </div>
               </Modal>
