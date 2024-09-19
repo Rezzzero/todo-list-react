@@ -66,7 +66,7 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
 
   return (
     <div className="min-h-screen bg-gray-800">
-      <div className="bg-gray-700 w-[330px] h-[360px] mx-auto text-white rounded-xl p-4">
+      <div className="bg-gray-700 w-[330px] max-h-[400px] mx-auto text-white rounded-xl p-4">
         <div className="bg-[#8D8D9C] w-[30px] h-[30px] mx-auto rounded-xl flex items-center justify-center">
           <GoogleIcon onClick={handleGoogleSignIn} />
         </div>
@@ -116,14 +116,16 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
             required
           />
           {isSignIn ? (
-            <>
+            <div className="flex flex-col text-center">
               <Link to="/register" className="text-blue-500">
                 Don't have an account?
               </Link>
               <button type="submit">Sign In</button>
-            </>
+            </div>
           ) : (
-            <button type="submit">Sign Up</button>
+            <div className="flex justify-center">
+              <button type="submit">Sign Up</button>
+            </div>
           )}
         </form>
       </div>

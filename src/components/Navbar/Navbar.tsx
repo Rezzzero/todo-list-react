@@ -72,8 +72,8 @@ export const Navbar = () => {
   return (
     <div className="bg-[#D9D9D9] w-full h-[60px] ">
       <div className="container mx-auto px-4 flex justify-between items-center h-full">
-        <Link to="/" className="flex align-center text-[#AB6060] font-island">
-          <h1 className="text-3xl mr-2">R</h1>
+        <Link to="/" className="flex items-center text-[#AB6060] font-island">
+          <h1 className="text-5xl mr-2">R</h1>
           <p className="pt-1 text-black text-xl font-light font-roboto">
             TaskManager
           </p>
@@ -107,7 +107,11 @@ export const Navbar = () => {
                 fontSize="small"
               />
             </div>
-            <p>{user.user_metadata.username}</p>
+            <p>
+              {user.user_metadata.username
+                ? user.user_metadata.username
+                : user.user_metadata.full_name}
+            </p>
             <button onClick={() => signOut()} className="text-red-500">
               Logout
             </button>
