@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/user/useUser";
 import { useTasks } from "../../contexts/task/useTasks";
 import supabase from "../../utils/supabaseClient";
@@ -14,6 +14,7 @@ export const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const photoFromMetadata = user?.user_metadata.avatar_url;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -59,6 +60,7 @@ export const Navbar = () => {
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
+    navigate("/");
     if (error) {
       console.log(error);
     } else {

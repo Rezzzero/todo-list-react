@@ -120,6 +120,9 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
               <Link to="/register" className="text-blue-500">
                 Don't have an account?
               </Link>
+              <Link to="/recover" className="text-gray-400">
+                Forgot Password?
+              </Link>
               <button type="submit">Sign In</button>
             </div>
           ) : (
