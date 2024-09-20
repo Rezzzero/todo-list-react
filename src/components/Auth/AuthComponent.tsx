@@ -19,6 +19,7 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
     repeatPassword: "",
   });
   const navigate = useNavigate();
+  const [signInError, setSignInError] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -33,7 +34,10 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
           email: authData.email,
           password: authData.password,
         });
-        if (error) throw error;
+        if (error) {
+          setSignInError(true);
+          throw error;
+        }
         navigate("/");
       } else if (isSignUp) {
         const { error } = await supabase.auth.signUp({
@@ -66,7 +70,7 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
 
   return (
     <div className="min-h-screen bg-gray-800">
-      <div className="bg-gray-700 w-[330px] max-h-[400px] mx-auto text-white rounded-xl p-4">
+      <div className="bg-gray-700 w-[330px] max-h-[420px] mx-auto text-white rounded-xl p-4">
         <div className="bg-[#8D8D9C] w-[30px] h-[30px] mx-auto rounded-xl flex items-center justify-center">
           <GoogleIcon onClick={handleGoogleSignIn} />
         </div>
@@ -117,6 +121,11 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
           />
           {isSignIn ? (
             <div className="flex flex-col text-center">
+              {signInError && (
+                <p className="text-red-400">
+                  Вы ввели неправильный пароль или почту
+                </p>
+              )}
               <Link to="/register" className="text-blue-500">
                 Don't have an account?
               </Link>
