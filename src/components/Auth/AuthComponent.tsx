@@ -73,7 +73,7 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800">
+    <div className="min-h-screen bg-gray-800 pt-10">
       <div className="bg-gray-700 w-[330px] max-h-[420px] mx-auto text-white rounded-xl p-4">
         <div className="flex justify-center align-center gap-4">
           <div className="bg-[#8D8D9C] w-[30px] h-[30px] rounded-xl flex items-center justify-center">
