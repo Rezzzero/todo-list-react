@@ -49,3 +49,14 @@ interface IdentityData {
   phone_verified: boolean;
   sub: string;
 }
+
+interface TestUser {
+  user: {
+    user_metadata: {
+      username: string;
+      full_name: string;
+      avatar_url: string;
+    };
+    id: string;
+  };
+}

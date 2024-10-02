@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../../utils/supabaseClient";
 import { userContext } from "./UserContext";
+import { TestUser } from "../../types/UserTypes";
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [user, setUser] = useState<any>(null);
+export const UserProvider: React.FC<{
+  children: React.ReactNode;
+  value?: TestUser | null;
+}> = ({ children, value }) => {
+  const [user, setUser] = useState<any>(value?.user || null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -13,7 +15,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser(data.session?.user ?? null);
     };
 
-    fetchUser();
+    if (!value) fetchUser();
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -24,7 +26,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     return () => {
       authListener?.subscription.unsubscribe();
     };
-  }, []);
+  }, [value]);
 
   return (
     <userContext.Provider value={{ user, setUser }}>

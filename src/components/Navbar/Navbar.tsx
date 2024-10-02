@@ -105,6 +105,7 @@ export const Navbar = () => {
               />
               <EditIcon
                 onClick={() => handleOpen()}
+                data-testid="avatar-edit-icon"
                 className="absolute inset-0 opacity-0 m-auto text-white group-hover:opacity-100 transition duration-300"
                 fontSize="small"
               />
