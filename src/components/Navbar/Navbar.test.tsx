@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Navbar } from "./Navbar";
 import { UserProvider } from "../../contexts/user/UserProvider";
@@ -33,7 +33,7 @@ describe("Navbar", () => {
     expect(screen.queryByText(/Logout/i)).not.toBeInTheDocument();
   });
 
-  test("opens modal when edit icon is clicked", () => {
+  test("opens modal when edit icon is clicked", async () => {
     const mockUser = {
       user: {
         user_metadata: {
@@ -58,6 +58,8 @@ describe("Navbar", () => {
     const avatarEditIcon = screen.getByTestId("avatar-edit-icon");
     fireEvent.click(avatarEditIcon);
 
-    expect(screen.getByText(/Обновить фото/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/Обновить фото/i)).toBeInTheDocument();
+    });
   });
 });
