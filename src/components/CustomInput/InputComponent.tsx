@@ -17,12 +17,15 @@ export const InputComponent = ({
   type = "text",
   required = false,
 }: InputComponentProps) => {
+  const id = `input-${name}`;
+
   return (
     <div className="mb-3">
-      <label className="block mb-1 text-white">
+      <label htmlFor={id} className="block mb-1 text-white">
         {name.charAt(0).toUpperCase() + name.slice(1)}
       </label>
       <input
+        id={id}
         type={type}
         name={name}
         placeholder={placeholder}
