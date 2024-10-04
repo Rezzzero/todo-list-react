@@ -38,6 +38,7 @@ export const Navbar = () => {
   }, [user, photoFromMetadata]);
 
   const updateAvatar = () => {
+    console.log("onUpload functioan has been called");
     if (user) {
       const url = getAvatarUrl(user.id);
       if (url) {

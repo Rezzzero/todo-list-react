@@ -72,10 +72,9 @@ export const ChangeAvatar = ({ onUpload, onClose }: ChangeAvatarProps) => {
           upsert: true,
         });
 
-      if (error) throw error;
-
       onUpload();
       onClose();
+      if (error) throw error;
     } catch (error) {
       console.error("Error uploading avatar:", error);
     } finally {
@@ -84,7 +83,7 @@ export const ChangeAvatar = ({ onUpload, onClose }: ChangeAvatarProps) => {
   };
 
   const onCropComplete = (
-    _: any,
+    _: unknown,
     croppedAreaPixels: { x: number; y: number; width: number; height: number }
   ) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -136,9 +135,10 @@ export const ChangeAvatar = ({ onUpload, onClose }: ChangeAvatarProps) => {
     }
 
     const croppedBlob = await getCroppedImg(previewImage, croppedAreaPixels);
+
     if (croppedBlob) {
       setCroppedImage(URL.createObjectURL(croppedBlob));
-      uploadAvatar(croppedBlob, user?.id);
+      await uploadAvatar(croppedBlob, user?.id);
     }
   };
 
@@ -154,7 +154,12 @@ export const ChangeAvatar = ({ onUpload, onClose }: ChangeAvatarProps) => {
     <div>
       <div className="flex flex-col relative items-center justify-center gap-4 mb-4">
         <h1 className="text-xl">Обновить фото</h1>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          data-testid="avatar-upload-input"
+        />
       </div>
       {previewImage && (
         <Cropper

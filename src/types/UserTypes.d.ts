@@ -51,12 +51,10 @@ interface IdentityData {
 }
 
 interface TestUser {
-  user: {
-    user_metadata: {
-      username: string;
-      full_name: string;
-      avatar_url: string;
-    };
-    id: string;
+  user_metadata: {
+    username: string;
+    full_name: string;
+    avatar_url: string;
   };
+  id: string;
 }

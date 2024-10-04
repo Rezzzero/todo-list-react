@@ -7,7 +7,7 @@ export const UserProvider: React.FC<{
   children: React.ReactNode;
   value?: TestUser | null;
 }> = ({ children, value }) => {
-  const [user, setUser] = useState<any>(value?.user || null);
+  const [user, setUser] = useState<any>(value ? value : null);
 
   useEffect(() => {
     const fetchUser = async () => {

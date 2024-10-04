@@ -35,14 +35,12 @@ describe("Navbar", () => {
 
   test("opens modal when edit icon is clicked", async () => {
     const mockUser = {
-      user: {
-        user_metadata: {
-          username: "testuser",
-          full_name: "Test User",
-          avatar_url: "https://example.com/avatar.jpg",
-        },
-        id: "123",
+      user_metadata: {
+        username: "testuser",
+        full_name: "Test User",
+        avatar_url: "https://example.com/avatar.jpg",
       },
+      id: "123",
     };
 
     render(
