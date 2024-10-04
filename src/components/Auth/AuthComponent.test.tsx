@@ -7,6 +7,7 @@ import { TasksProvider } from "../../contexts/task/TaskContext";
 import supabase from "../../utils/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import type * as ReactRouterDOM from "react-router-dom";
+import { userEvent } from "@testing-library/user-event";
 
 vi.mock("../../utils/supabaseClient", () => ({
   __esModule: true,
@@ -66,6 +67,8 @@ describe("AuthComponent", () => {
     return <AuthComponent url={url} />;
   };
 
+  const user = userEvent.setup();
+
   test("handleSubmit triggers sing in successfully", async () => {
     const mockSignIn = supabase.auth.signInWithPassword as ReturnType<
       typeof vi.fn
@@ -84,15 +87,15 @@ describe("AuthComponent", () => {
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText("Enter an email"), {
-      target: { value: "test@example.com" },
-    });
-
-    fireEvent.change(screen.getByPlaceholderText("Enter a password"), {
-      target: { value: "password123" },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: /Sign in/i }));
+    await user.type(
+      screen.getByPlaceholderText("Enter an email"),
+      "test@example.com"
+    );
+    await user.type(
+      screen.getByPlaceholderText("Enter a password"),
+      "password123"
+    );
+    await user.click(screen.getByRole("button", { name: /Sign in/i }));
 
     await waitFor(() => {
       expect(mockSignIn).toHaveBeenCalledWith({
@@ -118,19 +121,19 @@ describe("AuthComponent", () => {
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText("Enter an email"), {
-      target: { value: "test@example.com" },
-    });
-
-    fireEvent.change(screen.getByPlaceholderText("Enter a username"), {
-      target: { value: "testuser" },
-    });
-
-    fireEvent.change(screen.getByPlaceholderText("Enter a password"), {
-      target: { value: "password123" },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: /Sign Up/i }));
+    await user.type(
+      screen.getByPlaceholderText("Enter an email"),
+      "test@example.com"
+    );
+    await user.type(
+      screen.getByPlaceholderText("Enter a username"),
+      "testuser"
+    );
+    await user.type(
+      screen.getByPlaceholderText("Enter a password"),
+      "password123"
+    );
+    await user.click(screen.getByRole("button", { name: /Sign Up/i }));
 
     await waitFor(() => {
       expect(mockSignUp).toHaveBeenCalledWith({
