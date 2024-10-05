@@ -4,29 +4,19 @@ import { Navbar } from "./Navbar";
 import { UserProvider } from "../../contexts/user/UserProvider";
 import { TasksProvider } from "../../contexts/task/TaskContext";
 import { MemoryRouter } from "react-router-dom";
-import { TestUser } from "../../types/UserTypes";
-
-const MockUserProvider = ({
-  children,
-  user,
-}: {
-  children: React.ReactNode;
-  user: TestUser | null;
-}) => {
-  return <UserProvider value={user}>{children}</UserProvider>;
-};
 
 describe("Navbar", () => {
   test("navbar render without errors", () => {
     render(
       <MemoryRouter>
-        <MockUserProvider user={null}>
+        <UserProvider>
           <TasksProvider>
             <Navbar />
           </TasksProvider>
-        </MockUserProvider>
+        </UserProvider>
       </MemoryRouter>
     );
+
     expect(screen.getByText(/TaskManager/i)).toBeInTheDocument();
     expect(screen.getByText(/Log in/i)).toBeInTheDocument();
     expect(screen.getByText(/Sign up/i)).toBeInTheDocument();
@@ -45,15 +35,16 @@ describe("Navbar", () => {
 
     render(
       <MemoryRouter>
-        <MockUserProvider user={mockUser}>
+        <UserProvider value={mockUser}>
           <TasksProvider>
             <Navbar />
           </TasksProvider>
-        </MockUserProvider>
+        </UserProvider>
       </MemoryRouter>
     );
 
     const avatarEditIcon = screen.getByTestId("avatar-edit-icon");
+    expect(avatarEditIcon).toBeInTheDocument();
     fireEvent.click(avatarEditIcon);
 
     await waitFor(() => {

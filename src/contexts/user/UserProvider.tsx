@@ -18,7 +18,7 @@ export const UserProvider: React.FC<{
     if (!value) fetchUser();
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (_, session) => {
         setUser(session?.user ?? null);
       }
     );
