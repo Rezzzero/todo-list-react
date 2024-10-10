@@ -24,6 +24,7 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
   });
   const navigate = useNavigate();
   const [signInError, setSignInError] = useState(false);
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -57,7 +58,12 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
         });
 
         if (error) throw error;
-        alert("Check your email for the login link!");
+        if (isSignUp) {
+          setSignUpSuccess(true);
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+        }
       }
     } catch (error) {
       console.error("Auth error:", (error as Error).message);
@@ -89,6 +95,9 @@ export const AuthComponent = ({ url }: AuthComponentProps) => {
         <h1 className="text-3xl text-center my-4">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h1>
+        {signUpSuccess && isSignUp && (
+          <p className="text-green-400 text-center">Sign Up Successful</p>
+        )}
         <form onSubmit={handleSubmit}>
           {isSignUp ? (
             <>
