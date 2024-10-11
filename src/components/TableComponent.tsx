@@ -171,6 +171,7 @@ export const TableComponent = ({
             <td>
               <input
                 type="text"
+                name="task_name"
                 value={newTaskName}
                 onChange={(e) => setNewTaskName(e.target.value)}
                 onKeyDown={handleKeyDown}
