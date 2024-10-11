@@ -21,6 +21,7 @@ export const HomePage = () => {
         <button
           onClick={() => addTaskList("Новый список задач")}
           className="bg-[#5864A3] h-10 w-[240px] text-lg rounded-md"
+          data-testid="create-task-list"
         >
           <AddIcon /> Добавить список задач
         </button>
