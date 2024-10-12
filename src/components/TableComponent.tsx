@@ -7,22 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { EditableCellComponent } from "./Cell/EditableCellComponent";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-type Task = {
-  id: string;
-  task_name: string;
-  status: string | null;
-  notes: string;
-  selected?: boolean;
-};
-
-type TableComponentProps = {
-  onAddTask: (taskName: string) => void;
-  tasks: Task[];
-  onUpdateTask: (taskId: string, updatedTask: Partial<Task>) => void;
-  deleteTask: (taskId: string, listId: string) => void;
-  listId: string;
-};
+import { EditableTask, TableComponentProps } from "../types/TaskTypes";
 
 export const TableComponent = ({
   onAddTask,
@@ -64,7 +49,7 @@ export const TableComponent = ({
     setSelectedTasks(new Set());
   };
 
-  const columnHelper = createColumnHelper<Task>();
+  const columnHelper = createColumnHelper<EditableTask>();
 
   const columns = [
     columnHelper.accessor("selected", {

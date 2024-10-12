@@ -1,12 +1,4 @@
-import { FieldError, UseFormRegister } from "react-hook-form";
-
-type InputComponentProps = {
-  type?: string;
-  name: string;
-  placeholder?: string;
-  register?: UseFormRegister<any>;
-  error?: FieldError | undefined;
-};
+import { AuthInputProps } from "../../types/AuthTypes";
 
 export const InputComponent = ({
   name,
@@ -14,7 +6,7 @@ export const InputComponent = ({
   placeholder,
   register,
   error,
-}: InputComponentProps) => {
+}: AuthInputProps) => {
   const id = `input-${name}`;
 
   return (
@@ -26,7 +18,7 @@ export const InputComponent = ({
         id={id}
         type={type}
         placeholder={placeholder}
-        {...register?.(name, { required })}
+        {...register(name, { required: true })}
         className="w-full bg-gray-500 text-white p-2 border border-gray-300 rounded-md"
       />
       {error && <p className="text-red-400">{error.message}</p>}

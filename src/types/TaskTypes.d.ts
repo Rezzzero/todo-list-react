@@ -30,3 +30,19 @@ export interface TasksContextType {
   updateTaskListName: (listId: string, newName: string) => void;
   deleteTask: (taskId: string, listId: string) => void;
 }
+
+export interface EditableTask {
+  id: string;
+  task_name: string;
+  status: string | null;
+  notes: string;
+  selected?: boolean;
+}
+
+export interface TableComponentProps {
+  onAddTask: (taskName: string) => void;
+  tasks: EditableTask[];
+  onUpdateTask: (taskId: string, updatedTask: Partial<EditableTask>) => void;
+  deleteTask: (taskId: string, listId: string) => void;
+  listId: string;
+}

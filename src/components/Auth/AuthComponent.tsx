@@ -5,12 +5,7 @@ import { Link } from "react-router-dom";
 import { InputComponent } from "../CustomInput/InputComponent";
 import { AuthBySocial } from "./AuthBySocial";
 import { useForm } from "react-hook-form";
-
-type AuthFormValues = {
-  email: string;
-  username: string;
-  password: string;
-};
+import { AuthFormValues } from "../../types/AuthTypes";
 
 export const AuthComponent = ({ url }: { url: string }) => {
   const isSignIn = url.includes("/login");
@@ -36,7 +31,8 @@ export const AuthComponent = ({ url }: { url: string }) => {
           throw error;
         }
         navigate("/");
-      } else if (isSignUp) {
+      }
+      if (isSignUp) {
         const { error } = await supabase.auth.signUp({
           email: data.email,
           password: data.password,
