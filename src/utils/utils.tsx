@@ -1,4 +1,4 @@
-import supabase from "./supabaseClient";
+import supabase from "../shared/api/supabaseClient";
 
 export const getAvatarUrl = (userId: string) => {
   const { data } = supabase.storage

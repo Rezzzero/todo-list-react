@@ -1,7 +1,7 @@
 import { TableComponent } from "./TableComponent";
 import { useEffect, useState } from "react";
-import { Task, TaskProps } from "../types/TaskTypes";
-import { useTasks } from "../contexts/task/useTasks";
+import { Task, TaskProps } from "../entities/task/types/TaskTypes";
+import { useTasks } from "../entities/task/model/useTasks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";

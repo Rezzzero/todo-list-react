@@ -1,6 +1,6 @@
 import { TaskListComponent } from "../components/TaskListComponent";
 import AddIcon from "@mui/icons-material/Add";
-import { useTasks } from "../contexts/task/useTasks";
+import { useTasks } from "../entities/task/model/useTasks";
 
 export const HomePage = () => {
   const { tasksList, addTaskList } = useTasks();

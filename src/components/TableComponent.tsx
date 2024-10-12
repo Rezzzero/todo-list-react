@@ -7,7 +7,10 @@ import {
 } from "@tanstack/react-table";
 import { EditableCellComponent } from "./Cell/EditableCellComponent";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { EditableTask, TableComponentProps } from "../types/TaskTypes";
+import {
+  EditableTask,
+  TableComponentProps,
+} from "../entities/task/types/TaskTypes";
 
 export const TableComponent = ({
   onAddTask,

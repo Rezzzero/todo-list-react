@@ -1,7 +1,7 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import { FaDiscord } from "react-icons/fa";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import supabase from "../../utils/supabaseClient";
+import supabase from "../../shared/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
 
 type Provider = "google" | "discord" | "github";

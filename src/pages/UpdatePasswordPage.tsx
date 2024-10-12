@@ -1,5 +1,5 @@
 import { useState } from "react";
-import supabase from "../utils/supabaseClient";
+import supabase from "../shared/api/supabaseClient";
 
 export const UpdatePasswordPage = () => {
   const [newPassword, setNewPassword] = useState("");

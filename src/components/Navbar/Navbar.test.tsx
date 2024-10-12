@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Navbar } from "./Navbar";
 import { UserProvider } from "../../contexts/user/UserProvider";
-import { TasksProvider } from "../../contexts/task/TaskContext";
+import { TasksProvider } from "../../entities/task/model/TaskProvider";
 import { MemoryRouter } from "react-router-dom";
 
 describe("Navbar", () => {

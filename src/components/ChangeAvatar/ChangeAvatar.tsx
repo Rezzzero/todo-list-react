@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useUser } from "../../contexts/user/useUser";
+import { useUser } from "../../entities/user/model/useUser";
 import Cropper from "react-easy-crop";
-import supabase from "../../utils/supabaseClient";
+import supabase from "../../shared/api/supabaseClient";
 import { getAvatarUrl } from "../../utils/utils";
 
 interface ChangeAvatarProps {

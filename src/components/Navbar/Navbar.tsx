@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../../contexts/user/useUser";
-import { useTasks } from "../../contexts/task/useTasks";
-import supabase from "../../utils/supabaseClient";
+import { useUser } from "../../entities/user/model/useUser";
+import { useTasks } from "../../entities/task/model/useTasks";
+import supabase from "../../shared/api/supabaseClient";
 import EditIcon from "@mui/icons-material/Edit";
 import { Modal } from "@mui/material";
 import { useEffect, useState } from "react";

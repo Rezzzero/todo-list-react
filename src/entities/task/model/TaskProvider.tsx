@@ -1,17 +1,8 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  ReactNode,
-  useCallback,
-} from "react";
-import supabase from "../../utils/supabaseClient";
-import { Task, TaskList, TasksContextType } from "../../types/TaskTypes";
-import { useUser } from "../user/useUser";
-
-export const TasksContext = createContext<TasksContextType | undefined>(
-  undefined
-);
+import { useState, useEffect, ReactNode, useCallback } from "react";
+import supabase from "../../../shared/api/supabaseClient";
+import { Task, TaskList } from "../types/TaskTypes";
+import { useUser } from "../../user/model/useUser";
+import { TasksContext } from "./TaskContext";
 
 export const TasksProvider = ({ children }: { children: ReactNode }) => {
   const [tasksList, setTasksList] = useState<TaskList[]>([]);
