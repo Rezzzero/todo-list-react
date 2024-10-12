@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { afterEach, beforeAll, describe, expect, test, vi } from "vitest";
-import { ChangeAvatar } from "./ChangeAvatar";
+import { ChangeAvatar } from "./ChangeAvatarComponent";
 import { UserProvider } from "../../contexts/user/UserProvider";
 import { TestUser } from "../../entities/user/types/UserTypes";
 

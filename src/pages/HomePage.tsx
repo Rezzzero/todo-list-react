@@ -1,4 +1,4 @@
-import { TaskListComponent } from "../components/TaskListComponent";
+import { TaskListComponent } from "../features/TaskManagement/TaskListComponent";
 import AddIcon from "@mui/icons-material/Add";
 import { useTasks } from "../entities/task/model/useTasks";
 

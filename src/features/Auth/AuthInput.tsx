@@ -1,6 +1,6 @@
-import { AuthInputProps } from "../../types/AuthTypes";
+import { AuthInputProps } from "./AuthTypes";
 
-export const InputComponent = ({
+export const AuthInput = ({
   name,
   type,
   placeholder,

@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../entities/user/model/useUser";
 import Cropper from "react-easy-crop";
 import supabase from "../../shared/api/supabaseClient";
-import { getAvatarUrl } from "../../utils/utils";
+import { getAvatarUrl } from "../../shared/utils/utils";
 
 interface ChangeAvatarProps {
   onUpload: () => void;
   onClose: () => void;
 }
 
-export const ChangeAvatar = ({ onUpload, onClose }: ChangeAvatarProps) => {
+export const ChangeAvatarComponent = ({
+  onUpload,
+  onClose,
+}: ChangeAvatarProps) => {
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>("");

@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../../entities/user/model/useUser";
-import { useTasks } from "../../entities/task/model/useTasks";
-import supabase from "../../shared/api/supabaseClient";
+import { useUser } from "../../../entities/user/model/useUser";
+import { useTasks } from "../../../entities/task/model/useTasks";
+import supabase from "../../../shared/api/supabaseClient";
 import EditIcon from "@mui/icons-material/Edit";
 import { Modal } from "@mui/material";
 import { useEffect, useState } from "react";
-import { ChangeAvatar } from "../ChangeAvatar/ChangeAvatar";
-import { getAvatarUrl } from "../../utils/utils";
+import { ChangeAvatarComponent } from "../../../features/UserManagement/ChangeAvatarComponent";
+import { getAvatarUrl } from "../../../shared/utils/utils";
 
 export const Navbar = () => {
   const { user } = useUser();
@@ -126,7 +126,10 @@ export const Navbar = () => {
                 aria-describedby="modal-modal-description"
               >
                 <div className="absolute top-[50%] left-[50%] text-center text-white translate-x-[-50%] translate-y-[-50%] w-[600px] h-[520px] p-4 bg-[#3D3D43]">
-                  <ChangeAvatar onUpload={updateAvatar} onClose={handleClose} />
+                  <ChangeAvatarComponent
+                    onUpload={updateAvatar}
+                    onClose={handleClose}
+                  />
                 </div>
               </Modal>
             )}

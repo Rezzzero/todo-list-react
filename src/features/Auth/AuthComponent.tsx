@@ -2,10 +2,10 @@ import { useState } from "react";
 import supabase from "../../shared/api/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { InputComponent } from "../CustomInput/InputComponent";
+import { AuthInput } from "./AuthInput";
 import { AuthBySocial } from "./AuthBySocial";
 import { useForm } from "react-hook-form";
-import { AuthFormValues } from "../../types/AuthTypes";
+import { AuthFormValues } from "./AuthTypes";
 
 export const AuthComponent = ({ url }: { url: string }) => {
   const isSignIn = url.includes("/login");
@@ -72,14 +72,14 @@ export const AuthComponent = ({ url }: { url: string }) => {
           {isSignUp ? (
             <>
               <div>
-                <InputComponent
+                <AuthInput
                   type="email"
                   name="email"
                   placeholder="Enter an email"
                   register={register}
                   error={errors.email}
                 />
-                <InputComponent
+                <AuthInput
                   type="text"
                   name="username"
                   placeholder="Enter a username"
@@ -90,7 +90,7 @@ export const AuthComponent = ({ url }: { url: string }) => {
             </>
           ) : (
             <div>
-              <InputComponent
+              <AuthInput
                 type="email"
                 name="email"
                 placeholder="Enter an email"
@@ -99,7 +99,7 @@ export const AuthComponent = ({ url }: { url: string }) => {
               />
             </div>
           )}
-          <InputComponent
+          <AuthInput
             type="password"
             name="password"
             placeholder="Enter a password"

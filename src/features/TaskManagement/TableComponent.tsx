@@ -5,12 +5,12 @@ import {
   useReactTable,
   getCoreRowModel,
 } from "@tanstack/react-table";
-import { EditableCellComponent } from "./Cell/EditableCellComponent";
+import { EditableCellComponent } from "./EditableCellComponent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   EditableTask,
   TableComponentProps,
-} from "../entities/task/types/TaskTypes";
+} from "../../entities/task/types/TaskTypes";
 
 export const TableComponent = ({
   onAddTask,
