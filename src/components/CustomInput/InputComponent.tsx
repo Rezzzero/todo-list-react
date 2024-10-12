@@ -1,21 +1,19 @@
-import React from "react";
+import { FieldError, UseFormRegister } from "react-hook-form";
 
 type InputComponentProps = {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  name: string;
   type?: string;
-  required?: boolean;
+  name: string;
+  placeholder?: string;
+  register?: UseFormRegister<any>;
+  error?: FieldError | undefined;
 };
 
 export const InputComponent = ({
-  value,
-  onChange,
-  placeholder,
   name,
-  type = "text",
-  required = false,
+  type,
+  placeholder,
+  register,
+  error,
 }: InputComponentProps) => {
   const id = `input-${name}`;
 
@@ -27,13 +25,11 @@ export const InputComponent = ({
       <input
         id={id}
         type={type}
-        name={name}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        required={required}
+        {...register?.(name, { required })}
         className="w-full bg-gray-500 text-white p-2 border border-gray-300 rounded-md"
       />
+      {error && <p className="text-red-400">{error.message}</p>}
     </div>
   );
 };
