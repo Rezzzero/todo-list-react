@@ -4,7 +4,7 @@ import {
   getCoreRowModel,
 } from "@tanstack/react-table";
 import { EditableTask } from "../../../../entities/task/types/TaskTypes";
-import { EditableCellComponent } from "../../EditableCellComponent";
+import { CellForm } from "../../Cell/ui/CellForm";
 
 interface TanstackProps {
   tasks: EditableTask[];
@@ -50,7 +50,7 @@ export const useTanstackTable = ({
     columnHelper.accessor("task_name", {
       header: () => "Задача",
       cell: (info) => (
-        <EditableCellComponent
+        <CellForm
           value={info.getValue()}
           onSave={(newValue) =>
             onUpdateTask(info.row.original.id, { task_name: newValue })
@@ -61,7 +61,7 @@ export const useTanstackTable = ({
     columnHelper.accessor("status", {
       header: () => "Status",
       cell: (info) => (
-        <EditableCellComponent
+        <CellForm
           value={info.getValue() || "No Status"}
           onSave={(newValue) =>
             onUpdateTask(info.row.original.id, { status: newValue })
@@ -73,7 +73,7 @@ export const useTanstackTable = ({
     columnHelper.accessor("notes", {
       header: () => "Notes",
       cell: (info) => (
-        <EditableCellComponent
+        <CellForm
           value={info.getValue() || "Add notes..."}
           onSave={(newValue) =>
             onUpdateTask(info.row.original.id, { notes: newValue })
