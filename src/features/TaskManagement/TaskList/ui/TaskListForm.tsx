@@ -1,46 +1,23 @@
-import { TableComponent } from "./TableComponent";
-import { useEffect, useState } from "react";
-import { Task, TaskProps } from "../../entities/task/types/TaskTypes";
-import { useTasks } from "../../entities/task/model/useTasks";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { TaskProps } from "../../../../entities/task/types/TaskTypes";
+import { useTaskList } from "../model/useTaskList";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
+import { DeleteList } from "./DeleteList";
+import { TableForm } from "../../Table/ui/TableForm";
 
-export const TaskListComponent = ({ list }: TaskProps) => {
+export const TaskListForm = ({ list }: TaskProps) => {
   const {
-    tasks,
-    deleteTaskList,
-    fetchTasks,
-    addTask,
-    updateTask,
-    updateTaskListName,
+    isEditing,
+    newListName,
+    setNewListName,
+    setIsEditing,
+    handleDeleteList,
+    handleSaveListName,
+    handleAddTask,
+    handleUpdateTask,
     deleteTask,
-  } = useTasks();
-  const [isEditing, setIsEditing] = useState(false);
-  const [newListName, setNewListName] = useState(list.name);
-
-  useEffect(() => {
-    fetchTasks(list.id);
-  }, [list.id, fetchTasks]);
-
-  const handleAddTask = (taskName: string) => {
-    addTask(taskName, list.id);
-  };
-
-  const handleUpdateTask = (taskId: string, updatedTask: Partial<Task>) => {
-    updateTask(taskId, updatedTask);
-  };
-
-  const handleDeleteList = () => {
-    deleteTaskList(list.id);
-  };
-
-  const handleSaveListName = async () => {
-    updateTaskListName(list.id, newListName);
-    setIsEditing(false);
-  };
-
-  const tasksForCurrentList = tasks[list.id] || [];
+    tasksForCurrentList,
+  } = useTaskList({ list });
 
   return (
     <>
@@ -70,17 +47,11 @@ export const TaskListComponent = ({ list }: TaskProps) => {
             />
           </div>
         )}
-        <button
-          data-testid="delete-task-list"
-          onClick={handleDeleteList}
-          className="bg-red-600 text-white p-2 rounded-md"
-        >
-          <DeleteIcon />
-        </button>
+        <DeleteList handleDeleteList={handleDeleteList} />
       </div>
       <div className="flex w-full mb-[40px]">
         <div className="w-full">
-          <TableComponent
+          <TableForm
             onAddTask={handleAddTask}
             tasks={tasksForCurrentList}
             onUpdateTask={handleUpdateTask}

@@ -1,6 +1,6 @@
-import { TaskListComponent } from "../features/TaskManagement/TaskListComponent";
 import AddIcon from "@mui/icons-material/Add";
 import { useTasks } from "../entities/task/model/useTasks";
+import { TaskListForm } from "../features/TaskManagement/TaskList/ui/TaskListForm";
 
 export const HomePage = () => {
   const { tasksList, addTaskList } = useTasks();
@@ -15,7 +15,7 @@ export const HomePage = () => {
             if (!list || !list.id) {
               return null;
             }
-            return <TaskListComponent key={list.id} list={list} />;
+            return <TaskListForm key={list.id} list={list} />;
           })
         )}
         <button
