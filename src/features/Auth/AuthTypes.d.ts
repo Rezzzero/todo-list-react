@@ -11,3 +11,5 @@ export interface AuthInputProps {
   register: UseFormRegister<AuthFormValues>;
   error: FieldError;
 }
+
+export type Provider = "google" | "discord" | "github";

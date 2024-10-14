@@ -1,6 +1,6 @@
-import { AuthComponent } from "../features/Auth/AuthComponent";
+import { AuthForm } from "../features/Auth/AuthCore/ui/AuthForm";
 
 export const AuthPage: React.FC = () => {
   const currentUrl = window.location.pathname;
-  return <AuthComponent url={currentUrl} />;
+  return <AuthForm url={currentUrl} />;
 };
